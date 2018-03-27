@@ -105,27 +105,9 @@ func resourceArmPostgreSQLServer() *schema.Resource {
 				Type:     schema.TypeInt,
 				Required: true,
 				ForceNew: true,
-				ValidateFunc: validateIntInSlice([]int{
-					// Basic SKU
-					51200,
-					179200,
-					307200,
-					435200,
-					563200,
-					691200,
-					819200,
-					947200,
-
-					// Standard SKU
-					128000,
-					256000,
-					384000,
-					512000,
-					640000,
-					768000,
-					896000,
-					1024000,
-				}),
+				// this is for the Standard SKU; unclear what
+				// the Basic SKU supports
+				ValidateFunc: validation.IntBetween(128000, 1048576),
 			},
 
 			"ssl_enforcement": {
